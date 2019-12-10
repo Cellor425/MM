@@ -1,0 +1,61 @@
+@model List<MediaMonkey.Models.VideoViewModel>
+@{
+    Layout = "_Layout";
+}
+
+<!-- Three vids to feature for the first row--> 
+<h2>Top 10</h2>
+<div class="carousel">
+    @foreach(var v in Model.OrderBy(x => x.videoInfo.Views).Where(v => v.videoInfo.Visibility.VisibilityName == "Public" && !v.videoInfo.IsArchived && v.videoInfo.IsUploadFinished).ToList().Take(10))
+    {
+        <div class="video" id="first">
+            <a href="video/@v.videoInfo.VideoId">
+                <video width="100%" id="v.videoInfo.VideoId">
+                    <source src="@v.videoInfo.Video.Path" type="@v.videoInfo.Video.Format">
+                </video>
+            </a>
+            <div>
+                @v.videoInfo.Title<br>
+                <small><a href="@Url.Action("profile", "home", new { id = @v.videoInfo.ProfileId })">@v.videoInfo.Profile.Username</a></small>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Three vids to feature for the second row--> 
+<h2>Most Liked</h2>
+<div class="carousel">
+    @foreach(var v in Model.OrderByDescending(x => x.LikeRatio).Where(v => v.videoInfo.Visibility.VisibilityName == "Public" && !v.videoInfo.IsArchived && v.videoInfo.IsUploadFinished))
+    {
+        <div class="video" id="second">
+            <a href="video/@v.videoInfo.VideoId">
+                <video width="100%" id="v.videoInfo.VideoId">
+                    <source src="@v.videoInfo.Video.Path" type="@v.videoInfo.Video.Format">
+                </video>
+            </a>
+            <div>
+                @v.videoInfo.Title<br>
+                <small><a href="@Url.Action("profile", "home", new { id = @v.videoInfo.ProfileId })">@v.videoInfo.Profile.Username</a></small>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Three vids to feature for the third row--> 
+  <h2>People Are Awesome!</h2>
+<div class="carousel">
+    @foreach(var v in Model.Where(v => v.videoInfo.Visibility.VisibilityName == "Public" && !v.videoInfo.IsArchived && v.videoInfo.IsUploadFinished))
+    {
+        <div class="video" id="third">
+            <a href="video/@v.videoInfo.VideoId">
+                <video width="100%" id="v.videoInfo.VideoId">
+                    <source src="@v.videoInfo.Video.Path" type="@v.videoInfo.Video.Format">
+                </video>
+            </a>
+            <div>
+                @v.videoInfo.Title<br>
+                <small><a href="@Url.Action("profile", "home", new { id = @v.videoInfo.ProfileId })">@v.videoInfo.Profile.Username</a></small>
+            </div>
+        </div>
+    }
+</div>

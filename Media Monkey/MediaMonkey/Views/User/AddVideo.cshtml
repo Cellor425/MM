@@ -1,0 +1,17 @@
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@{
+    Layout = "_Layout";
+}
+@Html.AntiForgeryToken()
+
+<h2>Pick a Video File to Upload</h2>
+
+<div class="form-group">
+    <form action="" method="post" enctype="multipart/form-data">
+  
+        <label for="file">Filename:</label>
+        <input type="file" name="file" id="file" />
+
+        <input type="submit" />
+    </form>
+</div>

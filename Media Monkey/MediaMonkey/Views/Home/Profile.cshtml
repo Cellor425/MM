@@ -1,0 +1,122 @@
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+
+@model MediaMonkey.DataAccess.Models.Profile
+@{
+    Layout = "_Layout";
+}
+
+<link href="/../css/profile.css" rel="stylesheet" type="text/css">
+<link href="/../css/TabContent.css" rel="stylesheet" type="text/css">
+<script src="/js/TabContent.js"></script>
+
+<div class="profilePage">
+    <h2>Profile of @Model.Username</h2>
+    <div class="profilePic">
+    @if (Model.Avatar != null)
+    {
+        <img src="~/File?id=@Model.Avatar.Id" alt="avatar" />
+
+        // Display an edit profile button if you are the user
+        //@if (Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value) == Model.Id)
+        //{
+        //    <br><button class="btn btn-primary" role="button"><a href="@(Url.Action("editprofile", "user", new { id = Model.Id }))"<a>Edit Profile</a></button>
+        //}
+    }
+    else
+    {
+        <img src="/images/about/Raymond.jpg" />
+    }
+    </div>
+    <div class="otherProfileInformation">
+        <div class="tab-list">
+            @if (Model.VideoInfos.Count > 0)
+            {
+                <button class="tab active" onclick="openPage(event, 'userVideos')">Videos</button>
+                <button class="tab" onclick="openPage(event, 'profileDescription')">Description</button>
+            }
+            else
+            {
+                <button class="tab active" onclick="openPage(event, 'profileDescription')">Description</button>
+            }
+        </div>
+        @if (Model.VideoInfos.Count > 0)
+        {
+            <div class="tabcontent active" id="userVideos">
+                @if(Model.VideoInfos.Where(v => v.Visibility.VisibilityName == "Public" && !v.IsArchived && v.IsUploadFinished).Any())
+                {
+                    <h2>Public</h2>
+                    <div class="carousel">
+                        @foreach(var item in Model.VideoInfos.Where(v => v.IsUploadFinished && !v.IsArchived && v.Visibility.VisibilityName == "Public"))
+                        {
+                            <div class="video">
+                            <a href="@Url.Action("video", "home", new { id = @item.Video.Id })">
+                                <video width="100%" id="@item.Video.Id">
+                                    <source src="@item.Video.Path" type="@item.Video.Format">
+                                </video>
+                            </a>
+                            <div>@item.Title</div>
+                            @if(Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value) == @item.ProfileId)
+                            {
+                                <div><a href="@Url.Action("editvideoinfo", "user", new { id = @item.Id })">Edit</a></div>
+                            }
+                            </div>
+                        }
+                    </div>
+                }
+                @if(Model.VideoInfos.Where(v => v.Visibility.VisibilityName == "Private" && v.IsUploadFinished && !v.IsArchived).Any() && Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value) == Model.Id)
+                {
+                    <h2>Private</h2>
+                    <div class="carousel">
+                        @foreach(var item in Model.VideoInfos.Where(v => v.IsUploadFinished && !v.IsArchived && v.Visibility.VisibilityName == "Private"))
+                        {
+                            <div class="video">
+                            <a href="@Url.Action("video", "home", new { id = @item.Video.Id })">
+                                <video width="100%" id="@item.Video.Id">
+                                    <source src="@item.Video.Path" type="@item.Video.Format">
+                                </video>
+                            </a>
+                            <div>@item.Title</div>
+                            @if(Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value) == @item.ProfileId)
+                            {
+                                <div><a href="@Url.Action("editvideoinfo", "user", new { id = @item.Id })">Edit</a></div>
+                            }
+                            </div>
+                        }
+                    </div>
+                }
+                @if (Model.VideoInfos.Where(v => !v.IsUploadFinished && !v.IsArchived).Any() && Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value) == Model.Id)
+                {
+                    <h2>Unpublished</h2>
+                    <div class="carousel">
+                        @foreach(var item in Model.VideoInfos.Where(v => !v.IsUploadFinished && !v.IsArchived))
+                        {
+                            <div class="video">
+                            <a href="@Url.Action("video", "home", new { id = @item.Video.Id })">
+                                <video width="100%" id="@item.Video.Id">
+                                    <source src="@item.Video.Path" type="@item.Video.Format">
+                                </video>
+                            </a>
+                            <div>@item.Title</div>
+                                @if(Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value) == @item.ProfileId)
+                                {
+                                <div><a href="@Url.Action("editvideoinfo", "user", new { id = @item.Id })">Publish</a></div>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+        <div class="tabcontent @(Model.VideoInfos.Count > 0 ? string.Empty : "active")" id="profileDescription">
+            @if (@Model.Description != null)
+            {
+                @Model.Description
+            }
+            else
+            {
+                <i>No description added.  You should change that!</i>
+            }
+        </div>
+    </div>
+</div>

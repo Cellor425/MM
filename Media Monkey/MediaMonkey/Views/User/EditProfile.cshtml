@@ -1,0 +1,66 @@
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model MediaMonkey.Models.ProfileViewModel
+@{
+    Layout = "_Layout";
+}
+
+@using (Html.BeginForm(FormMethod.Post, new { @enctype = "multipart/form-data", @class = "col-md-6 col-md-offset-3" }))
+{
+    <h2 class="col-md-offset-4 col-md-8">Edit Profile</h2>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.CreationDate)
+    @Html.HiddenFor(x => x.LastLogin)
+    @Html.HiddenFor(x => x.Password)
+    @Html.HiddenFor(x => x.IsAdmin)
+    @Html.HiddenFor(x => x.IsEmailVerified)
+    @Html.HiddenFor(x => x.IsArchived)
+    <div class="form-group row">
+        @Html.LabelFor(x => x.FirstName, new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(x => x.FirstName, new { htmlAttributes = new { @class = "form-control"} })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(x => x.LastName, new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(x => x.LastName, new { htmlAttributes = new { @class = "form-control"} })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Username, new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(x => x.Username, new { htmlAttributes = new { @class = "form-control"} })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Description, new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(x => x.Description, new { htmlAttributes = new { @class = "form-control"} })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Email, new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(x => x.Email, new { htmlAttributes = new { @class = "form-control"} })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Country, new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(x => x.CountryId, new SelectList(Model.Countries, "Id", "CountryName"), new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Avatar, new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            <input type="file" id="Avatar" name="upload" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-8">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+}

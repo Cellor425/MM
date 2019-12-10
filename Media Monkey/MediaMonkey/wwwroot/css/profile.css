@@ -1,0 +1,42 @@
+.tab-list button {
+    width: 30rem;
+}
+
+.profilePage {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10px;
+}
+
+.profilePage h2 {
+    width: 100%;
+}
+
+.profilePic img {
+    max-width: 300px;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.profilePic, .otherProfileInformation {
+    max-width: 50%;
+    margin: 0px 5px;
+}
+
+.otherProfileInformation {
+    margin-top: -1.5rem;
+}
+
+.otherProfileInformation .tab-list {
+    overflow-y: hidden;
+}
+
+#profileDescription {
+    color: black;
+}
+
+/* Overrides main.css for profile page */
+.carousel:hover {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}

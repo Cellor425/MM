@@ -1,0 +1,223 @@
+body {
+    width: 100%;
+    background: #3c3653;
+}
+
+video {
+    width: 100%;
+    max-width: 1200px;
+}
+
+a,
+a:hover,
+a:active {
+    text-decoration: none !important;
+    color: yellow;
+}
+
+a:hover {
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+
+
+p,
+a {
+    color: orangered;
+}
+
+#guessInput {
+    color: rgb(60, 54, 86);
+}
+
+.title {
+    align-content: center;
+    margin-left: 40%;
+}
+
+#footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin-top: 50px;
+    padding-bottom: 0px;
+    width: 100%;
+    color: black;
+    text-align: center;
+    background-color: rgba(255, 166, 0, 0.7);
+}
+
+.group1,
+.group2,
+.group3 {
+    width: 16.6667%;
+    margin-left: 1px;
+    margin-right: .5%;
+    display: inline-block;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.headshot {
+    width: 160%;
+}
+
+.table,
+#tableTitle {
+    width: auto;
+    color: orange;
+}
+
+h2 {
+    padding: 5px;
+    text-decoration-line: underline;
+    color: orange;
+}
+
+.button {
+    display: block;
+    float: right;
+    margin-right: 40%;
+}
+
+td,
+th {
+    color: orange;
+}
+
+/* Form styling */
+.form-group,
+.form-group input[type="file"] {
+    color: orange;
+}
+
+.form-group input,
+.form-group select {
+    color: black;
+}
+
+body>main>div>form>div.validation-summary-errors {
+    color: salmon;
+}
+
+/* Navbar styling */
+.navbar {
+    background-color: orange;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+}
+
+.navbar a {
+    color: black;
+}
+
+.navbar-toggle span {
+    background-color: black;
+}
+
+/* Styles to take away lenght of top border*/
+td {
+    width: 25%;
+}
+
+td:nth-child(4) {
+    width: 10%;
+}
+
+td :last-child {
+    border-top: none;
+}
+
+main{
+    overflow: hidden;
+    margin-bottom: 50px
+}
+
+/* Scrollbar Css 
+.scrolling-wrapper{
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    margin-left: 1px;
+    -webkit-overflow-scrolling: touch;
+}
+.scrolling-wrapper .video{
+    display: inline-block;
+}
+
+#first, #second, #third{
+    display: inline-block;
+}
+
+*/
+
+/* Netflix looking scroll */
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    height: 5px;
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 136, 0, 0.322);
+}
+
+#comments, #relatedVideos {
+    color: orange;
+}
+
+.carousel {
+    display: grid;
+    grid-auto-flow: column;
+    overflow-x: scroll;
+    width: 100%;
+    grid-template-columns: repeat(5, 1fr);
+    margin-top: 30px;
+}
+
+.video {
+    background-color: black;
+    border: 1px solid orange;
+}
+
+.carousel,
+.video {
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    width: 100%;
+}
+
+.carousel video {
+    width: 250px;
+    height: 140px;
+}
+
+.video {
+    transform-origin: center left;
+}
+
+.carousel:hover>.video {
+    transform: scale(0.9);
+    opacity: 0.3;
+} 
+
+.carousel:hover .video:hover {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.video:hover~.video {
+    z-index: -1;
+}
+
+.video div,
+.video div a {
+    color: orange;
+    text-align: center;
+}
+
+/*Styles to reduce purple spacing */

@@ -1,0 +1,66 @@
+@model MediaMonkey.Models.VideoViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<link href="/css/TabContent.css" rel="stylesheet" type="text/css" />
+<link href="/css/video.css" rel="stylesheet" type="text/css" />
+<script src="/js/TabContent.js"></script>
+
+<video controls autoplay>
+    <source src="@Model.videoInfo.Video.Path" type="@Model.videoInfo.Video.Format">
+</video>
+
+<div class="tab-list">
+    <button class="tab active" onclick="openPage(event, 'videoInfo')">Video Info</button>
+    <button class="tab" onclick="openPage(event, 'comments')">Comments</button>
+</div>
+
+<div class="tabcontent active" id="videoInfo">
+    <table class="videoInfoTable tableWithHeaders">
+        <thead>
+            <tr>
+                <th clas="videoTitle">@Model.videoInfo.Title</th>
+                <th class="videoLikes">
+                    <span class="@(Model.ProfileLiked ? "liked" : "")">Likes: @Model.Likes</span>
+                    <span class="@(Model.ProfileDisliked ? "disliked" : "")">Dislikes: @Model.Dislikes</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="videoViews grayout">@Model.videoInfo.Views Views</td>
+            </tr>
+            <tr>
+                <td class="videoUploadDate">
+                    <a href="@Url.Action("Profile", "Home", new { id = @Model.videoInfo.ProfileId })">@Model.videoInfo.Profile.Username</a>
+                    <span class="grayout">(Uploaded On @Model.videoInfo.UploadDate.ToString("MMM d, yyyy"))</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="videoDescription">@Model.videoInfo.Description</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="tabcontent" id="comments">
+
+    <@Html.TextBox("commentBox")
+    <input id="Button1" type="button" value="button"> 
+
+    @if (Model.videoInfo.Video.Comments.Count == 0)
+    {
+        <div class="noComments">No comments.  Be the first!</div>
+    }
+    else
+    {
+        @foreach(var c in Model.videoInfo.Video.Comments)
+        {
+            <div class="comment">
+                <div class="commentProfile">@c.Profile.Username</div>
+                <div class="commentContent">@c.CommentContent</div>
+            </div>
+        }
+    }
+</div>

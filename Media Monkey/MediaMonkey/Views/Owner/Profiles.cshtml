@@ -1,0 +1,63 @@
+@model List<MediaMonkey.DataAccess.Models.Profile>
+@{
+    Layout = "_Layout";
+}
+
+<link href="/../css/profile.css" rel="stylesheet" type="text/css">
+
+<div>
+    <table class="table">
+        <tr>
+            <th scope="col">Avatar</th>
+            <th scope="col">Username</th>
+            <th scope="col">Description</th>
+            <th scope="col">Email</th>
+            <th scope="col">Creation Date</th>
+            <th scope="col">Last Login</th>
+            <th scope="col">Country</th>
+            <th scope="col">Role</th>
+            <th scope="col">Action</th>
+        </tr>
+
+        @foreach(var item in Model)
+        {
+        <tr>
+            <td class="profilePic">
+                @if (item.Avatar != null)
+                {
+                    <img src="~/File?id=@item.Avatar.Id" alt="avatar" />
+                }
+                else
+                {
+                    <img src="/images/about/Raymond.jpg" />
+                }
+            </td>
+            <td>@item.Username</td>
+            @if(item.Description != null)
+            {
+                @if(item.Description.Length > 200)
+                {
+                    <td>@item.Description.Substring(0, 197)@("...")</td>
+                }
+                else
+                {
+                    <td>@item.Description</td>
+                }
+            }
+            else
+            {
+                <td>No Description</td>
+            }
+            <td>@item.Email @(item.IsEmailVerified ? " (Verified)" : " (Unverified)")</td>
+            <td>@item.CreationDate</td>
+            <td>@item.LastLogin</td>
+            <td>@item.Country.CountryName</td>
+            <td>@(item.IsOwner ? "Owner" : item.IsAdmin ? "Admin" : "User")</td> <!-- Update once role functionality is added -->
+            <td>
+                <a href="@(Url.Action("editprofile", "owner", new { id = item.Id }))"a>Edit</a>
+                <a href="@(Url.Action("profile", "home", new { id = item.Id }))"a>View</a>
+            </td>
+        </tr>
+        }
+    </table>
+</div>

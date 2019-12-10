@@ -1,0 +1,48 @@
+@model List<MediaMonkey.Models.VideoViewModel>
+@{
+    Layout = "_Layout";
+}
+
+<div>
+    <table class="table">
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Path</th>
+            <th scope="col">Format</th>
+            <th scope="col">Description</th>
+            <th scope="col">Visibility</th>
+            <th scope="col">Likes/Dislikes</th>
+            <th scope="col">Views</th>
+            <th scope="col">Upload Progress</th>
+            <th scope="col">Status</th>
+            <th scope="col">Video</th>
+            <th scope="col">Profile</th>
+            <th scope="col">Actions</th>
+        </tr>
+
+        @foreach(var item in Model)
+        {
+        <tr>
+            <td>@item.videoInfo.Title</td>
+            <td>@item.videoInfo.Video.Path</td>
+            <td>@item.videoInfo.Video.Format</td>
+            <td>@item.videoInfo.Description</td>
+            <td>@item.videoInfo.Visibility.VisibilityName</td>
+            <td>@item.Likes / @item.Dislikes</td>
+            <td>@item.videoInfo.Views</td>
+            <td>@(@item.videoInfo.IsUploadFinished ? "Finished" : "Unfinished")</td>
+            <td>@(@item.videoInfo.IsArchived ? "Archived" : "Active")</td>
+            <td><a href="@(Url.Action("video", "home", new { id = item.videoInfo.VideoId }))">Video</a></td> 
+            <td><a href="@(Url.Action("profile", "home", new { id = item.videoInfo.ProfileId }))">Profile</a></td>
+            <td>
+                <a href="@(Url.Action("editvideo", "admin", new { id = item.videoInfo.Id }))">Edit</a>
+                <a href="@(Url.Action("deletevideoinfo", "admin", new { id = item.videoInfo.Id }))">Delete</a>
+            </td>
+        </tr>
+        }
+    </table>
+
+    <p>
+        <a class="btn btn-primary" href="@Url.Action("addvideo", "admin")" role="button">Upload Video</a>
+    </p>
+</div>

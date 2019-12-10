@@ -1,0 +1,11 @@
+video {
+    max-height: 65rem;
+}
+
+.liked {
+    color: blue;
+}
+
+.disliked {
+    color: red;
+}

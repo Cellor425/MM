@@ -1,0 +1,30 @@
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+
+@if (User.Identity.IsAuthenticated)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" href="#">@User.Identity.Name <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="@Url.Action("Profile", "Home", new { id = @User.FindFirst(ClaimTypes.NameIdentifier)?.Value })">View Profile</a></li>
+                <li><a href="@Url.Action("editprofile", "User", new { id = @User.FindFirst(ClaimTypes.NameIdentifier)?.Value })">Edit Profile</a></li>
+                <li><a href="@Url.Action("AddVideo", "User" )">Upload Video</a></li>
+            </ul>
+        </li>
+        <li>
+            <a class="nav-link" href="@Url.Action("Logout", "Account")">Logout</a>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a class="nav-link" href="@Url.Action("Register", "Account")">Sign Up</a>
+        </li>
+        <li>
+            <a class="nav-link" href="@Url.Action("Login", "Account")">Login</a>
+        </li>
+    </ul>
+}
